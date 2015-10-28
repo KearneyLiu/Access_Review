@@ -60,4 +60,5 @@ local_settings.py
 .DS_Store
 db.sqlite3
 /.idea
+/webapps/access_review/migrations
 
