@@ -17,6 +17,11 @@ from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.models import User, Group, Permission
 from django.contrib.auth import login, authenticate
 
+from reportlab.lib import colors
+from reportlab.lib.pagesizes import A4, inch, landscape
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph
+from reportlab.lib.styles import getSampleStyleSheet
+
 # Create your views here.
 
 # Initialized customer group and provider group
@@ -532,4 +537,54 @@ def upload_file(request, id):
     return "4"
 
 def report_pdf(request,id):
-    return "3"
+    application = get_object_or_404(Application, id=id)
+    permissions = App_Permission.objects.filter(application = application)
+
+
+    doc = SimpleDocTemplate("report.pdf", pagesize=A4, rightMargin=30,leftMargin=30, topMargin=30,bottomMargin=18)
+    doc.pagesize = landscape(A4)
+    elements = []
+
+
+    data = []
+    data.append(["User ID","First Name","Last Name","Permission","Reviewed By"])
+    for permission in permissions:
+        user = permission.regular_user
+        id = user.id
+        firstname = user.first_name
+        lastname = user.last_name
+        status = permission.status
+        reviewer = permission.reviewed_by.first_name+" "+permission.reviewed_by.last_name
+        data.append([str(id),firstname,lastname,status,reviewer])
+
+
+    style = TableStyle([('ALIGN',(1,1),(-2,-2),'RIGHT'),
+                           ('TEXTCOLOR',(1,1),(-2,-2),colors.red),
+                           ('VALIGN',(0,0),(0,-1),'TOP'),
+                           ('TEXTCOLOR',(0,0),(0,-1),colors.blue),
+                           ('ALIGN',(0,-1),(-1,-1),'CENTER'),
+                           ('VALIGN',(0,-1),(-1,-1),'MIDDLE'),
+                           ('TEXTCOLOR',(0,-1),(-1,-1),colors.green),
+                           ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
+                           ('BOX', (0,0), (-1,-1), 0.25, colors.black),
+                           ])
+
+    #Configure style and word wrap
+    stylesheet = getSampleStyleSheet()
+    s = stylesheet["BodyText"]
+    s.wordWrap = 'CJK'
+    data2 = [[Paragraph(cell, s) for cell in row] for row in data]
+    t=Table(data2)
+    t.setStyle(style)
+
+    title = "Access Review Report for "
+    title += application.app_name
+    elements.append(Paragraph(title,stylesheet['Title']))
+    elements.append(t)
+    doc.build(elements)
+
+    with open('report.pdf', 'r') as pdf:
+        response = HttpResponse(pdf.read(),content_type='application/pdf')
+        response['Content-Disposition'] = 'filename=report.pdf'
+        return response
+    pdf.closed
