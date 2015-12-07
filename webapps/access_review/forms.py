@@ -79,3 +79,6 @@ class PermissionForm(forms.ModelForm):
 
 class UploadFileForm(forms.Form):
     file = forms.FileField()
+
+class CreateAppForm(forms.Form):
+    app_name = forms.CharField(max_length=30,widget=forms.TextInput(attrs={'placeholder': 'App Name'}))

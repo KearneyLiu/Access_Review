@@ -12,20 +12,37 @@
 
 {% block content %}
     <!-- Page Content -->
+
     <div class="container">
 
         <div class="row">
 
+            {% if messages %}
+                <p style="color:red" align="center">
+                    {{ messages }}
+                </p>
+            {% endif %}
+
             <div class="col-md-3">
+
                 <p class="lead">App Name</p>
                 <!-- List for All apps -->
                 <div class="list-group">
                     {% for app in applications %}
                     <a href="{% url 'view_assignment' app.id %}" class="list-group-item">{{ app.app_name }}</a>
-
                     {% endfor %}
                 </div>
+
+            <form method="post" action="{% url 'create_app' %}" style="color:black">
+            {{ form.app_name }}
+            {% csrf_token %}
+            <input type="submit" value="Create App" style="background-color: Transparent;"/>
+
+        </form>
+
             </div>
+
+
 
             <div class="col-md-9">
 

@@ -253,7 +253,7 @@ def view_permission(request, id):
         applications.append(relation.application)
 
 
-    context = {'permissions':permissions, 'applications': applications,  'app':applications[0]}
+    context = {'permissions':permissions, 'applications': applications,  'app':application}
     return render(request, "view_permission.html", context)
 
 
@@ -434,27 +434,33 @@ def admin(request):
     managers = Manager.objects.all()
     auditors = Auditor.objects.all()
     applications = Application.objects.all()
-    application = applications[0]
-    manager_relations = App_Manager_Relation.objects.filter(application=application)
-    auditor_relations = App_Auditor_Relation.objects.filter(application=application)
+    if not applications :
+        context = {'messages' : "Please add application first." }
+        context['form'] = CreateAppForm()
+        return render(request, 'admin_home.html', context)
+    else:
+        application = applications[0]
+        manager_relations = App_Manager_Relation.objects.filter(application=application)
+        auditor_relations = App_Auditor_Relation.objects.filter(application=application)
 
-    approved_managers = []
-    approved_auditors = []
+        approved_managers = []
+        approved_auditors = []
 
-    for m_relation in manager_relations:
-        approved_managers.append(m_relation.manager)
-    for a_relation in auditor_relations:
-        approved_auditors.append(a_relation.auditor)
+        for m_relation in manager_relations:
+            approved_managers.append(m_relation.manager)
+        for a_relation in auditor_relations:
+            approved_auditors.append(a_relation.auditor)
 
 
-    wait_managers = [ x for x in managers if x not in approved_managers]
-    print wait_managers
-    wait_auditors = [ x for x in auditors if x not in approved_auditors]
+        wait_managers = [ x for x in managers if x not in approved_managers]
+        print wait_managers
+        wait_auditors = [ x for x in auditors if x not in approved_auditors]
 
-    context = {'applications': applications, 'approved_managers':approved_managers, 'approved_auditors':approved_auditors,
-               'wait_managers':wait_managers, 'wait_auditors':wait_auditors, 'application':application}
+        context = {'applications': applications, 'approved_managers':approved_managers, 'approved_auditors':approved_auditors,
+                   'wait_managers':wait_managers, 'wait_auditors':wait_auditors, 'application':application}
+        context['form'] = CreateAppForm()
 
-    return render(request, 'admin_home.html', context)
+        return render(request, 'admin_home.html', context)
 
 
 
@@ -535,6 +541,7 @@ def upload(request, id):
     application = get_object_or_404(Application, id=id)
     applications = Application.objects.all()
     context = {'applications': applications,  'application':application}
+    context['form'] = CreateAppForm()
     return render(request, 'admin_upload.html', context)
 
 @transaction.atomic
@@ -629,3 +636,28 @@ def report_pdf(request,id):
         response['Content-Disposition'] = 'filename=report.pdf'
         return response
     pdf.closed
+
+@transaction.atomic
+@in_admin
+def create_app(request):
+    context={}
+    #application = get_object_or_404(Application, id=id)
+
+    #if request.method == 'GET':
+        #applications = Application.objects.all()
+        #context['form'] = CreateAppForm()
+        #application = get_object_or_404(Application, id=id)
+        #context = {'applications': applications,  'application':application,}
+        #return render(request, 'admin_upload.html', context)
+
+    form = CreateAppForm(request.POST)
+
+    if form.is_valid():
+        new_app = Application.objects.create(app_name=form.cleaned_data['app_name'])
+    new_app.save()
+    #applications = Application.objects.all()
+    #application = get_object_or_404(Application, id=id)
+    #context = {'applications': applications,  'application':application,}
+    #context['form'] = CreateAppForm()
+
+    return redirect(reverse('admin'))
