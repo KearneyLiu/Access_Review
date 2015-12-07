@@ -253,7 +253,7 @@ def view_permission(request, id):
         applications.append(relation.application)
 
 
-    context = {'permissions':permissions, 'applications': applications,  'app':applications[0]}
+    context = {'permissions':permissions, 'applications': applications,  'app':application}
     return render(request, "view_permission.html", context)
 
 
