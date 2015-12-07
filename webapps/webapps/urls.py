@@ -36,8 +36,6 @@ urlpatterns = patterns('',
     url(r'^remove_auditor/(?P<id1>\d+)/(?P<id2>\d+)$', 'access_review.views.remove_auditor', name='remove_assignment'),
 
     url(r'^audit_permission/(?P<id>\d+)$', 'access_review.views.audit_permission', name='audit_permission'),
-
-
     url(r'^report_pdf/(?P<id>\d+)$', 'access_review.views.report_pdf', name='report_pdf'),
 
 )
