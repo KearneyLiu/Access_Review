@@ -1,5 +1,12 @@
 {% extends "base.html" %}
 
+{% block header %}
+    <li>
+        <a href="{% url 'home'%}">Review</a>
+    </li>
+
+{% endblock %}
+
 {% block content %}
     <!-- Page Content -->
     <div class="container">
@@ -60,7 +67,7 @@
                 </table>
               </div>
 
-
+            <a href="{% url 'report_pdf' app.id %}"><input type="text" class="btn btn-default" value="Generate Report"></a>
             </div>
 
         </div>

@@ -73,7 +73,7 @@ The app-user and permission result
 '''
 class App_Permission(models.Model):
     read = "Read"
-    read_write = "Read-Write"
+    read_write = "Read-write"
     choices = (
         (read, u'Read'),
         (read_write, u'Read and Write'),

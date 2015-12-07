@@ -55,7 +55,7 @@ class LoginForm(forms.Form):
 
 class PermissionForm(forms.ModelForm):
     read = "Read"
-    read_write = "Read-Write"
+    read_write = "Read-write"
     choices = (
         (read, u'Read'),
         (read_write, u'Read and Write'),

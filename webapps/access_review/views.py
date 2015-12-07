@@ -226,17 +226,15 @@ def admin_register(request):
 def home(request):
     context = {}
     print("manager")
-    #toplists = Provider.objects.all().order_by('-count')[:10]
-    #markers = Marker.objects.all()
-    #context = {
-    #    'toplists': toplists,
-    #    'markers': markers
-    #}
     manager = get_object_or_404(Manager, user = request.user)
     relations = App_Manager_Relation.objects.filter(manager=manager)
     applications = []
     for relation in relations:
         applications.append(relation.application)
+
+    if applications == []:
+        context={'messages': "No Application Assigned to You."}
+        return render(request, "error_page.html", context)
 
     permissions = App_Permission.objects.filter(application = applications[0])
 
@@ -400,6 +398,10 @@ def audit(request):
     applications = []
     for relation in relations:
         applications.append(relation.application)
+
+    if applications == []:
+        context={'messages': "No Application Assigned to You."}
+        return render(request, "error_page.html", context)
 
     permissions = App_Permission.objects.filter(application = applications[0])
 
