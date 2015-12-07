@@ -546,6 +546,8 @@ def upload_file(request, id):
     if form.is_valid():
         f = request.FILES['file']
         for line in f:
+            if len(len)>0:
+                line = line[:-1]
             try:
                 s = line.split(",")
                 email = s[0]
@@ -590,7 +592,10 @@ def report_pdf(request,id):
         firstname = user.first_name
         lastname = user.last_name
         status = permission.status
-        reviewer = permission.reviewed_by.first_name+" "+permission.reviewed_by.last_name
+        if permission.reviewed_by:
+            reviewer = permission.reviewed_by.first_name+" "+permission.reviewed_by.last_name
+        else:
+            reviewer = "None"
         data.append([str(id),firstname,lastname,status,reviewer])
 
 
