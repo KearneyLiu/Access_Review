@@ -553,13 +553,15 @@ def upload_file(request, id):
     if form.is_valid():
         f = request.FILES['file']
         for line in f:
-            if len(len)>0:
+            if len(line)>0:
                 line = line[:-1]
             try:
+                print line
                 s = line.split(",")
                 email = s[0]
                 name = s[1]
                 permission = s[2]
+                print permission
                 names = s[1].split(" ")
                 firstname = names[0]
                 lastname = names[1]

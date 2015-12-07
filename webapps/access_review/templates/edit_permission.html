@@ -1,5 +1,11 @@
 {% extends "base.html" %}
 
+{% block header %}
+<li>
+        <a href="{% url 'home'%}">Review</a>
+    </li>
+{% endblock %}
+
 {% block content %}
     <h2 class="sub-header">Permission Update</h2>
 

@@ -1,5 +1,11 @@
 {% extends "base.html" %}
 
+{% block header %}
+<li>
+        <a href="{% url 'audit'%}">Audit</a>
+    </li>
+{% endblock %}
+
 {% block content %}
     <!-- Page Content -->
     <div class="container">
