@@ -1,8 +1,8 @@
 from django.db import transaction
 from django.http import HttpResponse
 from django.shortcuts import render
-from access_review.forms import *
-from access_review.models import *
+from forms import *
+from models import *
 
 from django.shortcuts import render, get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist
@@ -235,7 +235,7 @@ def home(request):
 
     permissions = App_Permission.objects.filter(application = applications[0])
 
-    context = {'permissions':permissions, 'applications': applications}
+    context = {'permissions':permissions, 'applications': applications, 'app':applications[0]}
     return render(request, 'homepage.html', context)
 
 @in_manager
@@ -250,7 +250,7 @@ def view_permission(request, id):
         applications.append(relation.application)
 
 
-    context = {'permissions':permissions, 'applications': applications}
+    context = {'permissions':permissions, 'applications': applications,  'app':applications[0]}
     return render(request, "view_permission.html", context)
 
 
@@ -519,3 +519,7 @@ def remove_auditor(request, id1, id2):
     app_auditor_relation.delete()
 
     return redirect(reverse('view_permission', args=(application.id)))
+
+
+@def report_pdf(request,id):
+    
