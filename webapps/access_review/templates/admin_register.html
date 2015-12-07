@@ -1,0 +1,111 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="{{STATIC_URL}}bootstrap-3.3.2-dist/css/bootstrap.min.css">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="{{STATIC_URL}}bootstrap-3.3.2-dist/css/bootstrap-theme.min.css">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="{{STATIC_URL}}bootstrap-3.3.2-dist/js/bootstrap.min.js"></script> 
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/register.css"/>
+    <link href="{{STATIC_URL}}font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="{{STATIC_URL}}css/welcome.css">
+    <meta charset="utf-8">
+    <title>Administrator Register</title>
+</head>
+
+    <a id="menu-toggle" href="#" class="btn btn-dark btn-lg toggle"><i class="fa fa-bars"></i></a>
+    <nav id="sidebar-wrapper">
+        <ul class="sidebar-nav" id="side-menu">
+            <a id="menu-close" href="#" class="btn btn-light btn-lg pull-right toggle"><i class="fa fa-times"></i></a>
+            <li class="sidebar-brand">
+                <a href="#top"  onclick = $("#menu-toggle").click(); >Access Review</a>
+            </li>
+            <li>
+                <a href="/" >Back to Index</a>
+            </li>
+            <li>
+                <a href="{% url 'login' %}" >Login In</a>
+            </li>
+            <li>
+                <a href="#" >Sign Up</a>
+                <ul class="nav nav-second-level">
+                    <li>
+                        <a href="/manager_register">Manager</a>
+                    </li>
+                    <li>
+                        <a href="/auditor_register">Auditor</a>
+                    </li>
+                </ul>
+            </li>            
+        </ul>
+    </nav>
+
+
+    <header id="top" class="header" style="width: 100%; background: url({{STATIC_URL}}pictures/7.pic_hd.jpg) no-repeat center center scroll; background-size: cover;">
+      <h1  style="text-align: center;">Administrator</h1>
+<div class="container-fluid" style="margin-top: 50px;">
+    
+    {% for error in errors %}
+        <p style="color:red">
+            {{ error }}
+        </p>
+    {% endfor %}
+    <div class="form">
+    <form class= "login" method="post" action="{% url 'admin_register' %}" style="color:black">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <input type="submit" value="Register" style="background-color: Transparent;"/>
+    </form>
+    </div>
+</div>
+    </header>
+
+
+
+
+
+    <script src="{{STATIC_URL}}js/login.js"></script>
+    <script>
+    // Closes the sidebar menu
+    $("#menu-close").click(function(e) {
+        e.preventDefault();
+        $("#sidebar-wrapper").toggleClass("active");
+    });
+
+    // Opens the sidebar menu
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#sidebar-wrapper").toggleClass("active");
+    });
+
+    // Scrolls to the selected menu item on the page
+    $(function() {
+        $('a[href*=#]:not([href=#])').click(function() {
+            if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') || location.hostname == this.hostname) {
+
+                var target = $(this.hash);
+                target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                if (target.length) {
+                    $('html,body').animate({
+                        scrollTop: target.offset().top
+                    }, 1000);
+                    return false;
+                }
+            }
+        });
+    });
+    </script>
+    <script src="{{STATIC_URL}}js/metisMenu.min.js"></script>
+    <script src="{{STATIC_URL}}js/sb-admin-2.js"></script>
+</body>
+</html>
+

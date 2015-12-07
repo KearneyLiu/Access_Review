@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <!-- Page Content -->
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-md-3">
+                <p class="lead">App Name</p>
+                <!-- List for All apps -->
+                <div class="list-group">
+                    {% for app in applications%}
+                    <a href="{% url 'view_assignment' app.id %}" class="list-group-item">{{ app.app_name }}</a>
+
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="col-md-9">
+
+                <div class="table-responsive">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>Approved Manager</th>
+                        <th> Manager's First Name </th>
+                        <th> Manager's Last Name </th>
+                        <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for approved_manager in approved_managers%}
+                    <tr>
+                      <td>{{ approved_manager.first_name }}</td>
+                      <td>{{ approved_manager.last_name }}</td>
+                        <td>
+                      <a href="{% url 'remove_manager' application.id approved_manager.id %}"><input type="text" class="btn btn-default" value="Remove"></a>
+                      </td>
+
+
+                    </tr>
+                  {% endfor %}
+
+                  </tbody>
+                </table>
+
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>Non-Approved Manager</th>
+                        <th> Manager's First Name </th>
+                        <th> Manager's Last Name </th>
+                        <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for wait_manager in wait_managers%}
+                    <tr>
+                      <td>{{ wait_manager.first_name }}</td>
+                      <td>{{ wait_manager.last_name }}</td>
+                        <td>
+                      <a href="{% url 'assign_manager' application.id wait_manager.id %}"><input type="text" class="btn btn-default" value="Assign"></a>
+                      </td>
+
+                    </tr>
+                  {% endfor %}
+
+                  </tbody>
+                </table>
+
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>Approved Auditor</th>
+                        <th> Auditor's First Name </th>
+                        <th> Auditor's Last Name </th>
+                        <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for approved_auditor in approved_auditors%}
+                    <tr>
+                      <td>{{ approved_auditor.first_name }}</td>
+                      <td>{{ approved_auditor.last_name }}</td>
+                        <td>
+                      <a href="{% url 'remove_auditor' application.id approved_auditor.id %}"><input type="text" class="btn btn-default" value="Remove"></a>
+                      </td>
+
+                    </tr>
+                  {% endfor %}
+
+                  </tbody>
+                </table>
+
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>Non-Approved Auditor</th>
+                        <th> Auditor's First Name </th>
+                        <th> Auditor's Last Name </th>
+                        <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for wait_auditor in wait_auditors%}
+                    <tr>
+                      <td>{{ wait_auditor.first_name }}</td>
+                      <td>{{ wait_auditor.last_name }}</td>
+                        <td>
+                      <a href="{% url 'assign_auditor' application.id wait_auditor.id %}"><input type="text" class="btn btn-default" value="Assign"></a>
+                      </td>
+
+                    </tr>
+                  {% endfor %}
+
+                  </tbody>
+                </table>
+
+              </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+    <!-- /.container -->
+
+{% endblock %}

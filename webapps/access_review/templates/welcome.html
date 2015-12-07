@@ -1,0 +1,215 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <!-- Latest compiled and minified CSS --> 
+
+    <link rel="stylesheet" href="{{STATIC_URL}}bootstrap-3.3.2-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{STATIC_URL}}css/welcome.css">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="{{STATIC_URL}}bootstrap-3.3.2-dist/js/bootstrap.min.js"></script> 
+
+
+    <link href="{{STATIC_URL}}font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no'/>
+
+    <meta charset="utf-8">
+    <title>Welcome Access Review</title>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <a id="menu-toggle" href="#" class="btn btn-dark btn-lg toggle"><i class="fa fa-bars"></i></a>
+    <nav id="sidebar-wrapper">
+        <ul class="sidebar-nav" id="side-menu">
+            <a id="menu-close" href="#" class="btn btn-light btn-lg pull-right toggle"><i class="fa fa-times"></i></a>
+            <li class="sidebar-brand">
+                <a href="#top"  onclick = $("#menu-close").click(); >Access Review</a>
+            </li>
+            <li>
+                <a href="{% url 'login' %}" onclick = $("#menu-close").click();>Login in</a>
+            </li>
+            <li>
+                <a href="#" >Sign Up</a>
+                <ul class="nav nav-second-level">
+                    <li>
+                        <a href="/manager_register">Manager</a>
+                    </li>
+                    <li>
+                        <a href="/auditor_register">Auditor</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#services" onclick = $("#menu-close").click(); >Services</a>
+            </li>
+            <li>
+                <a href="#contact" onclick = $("#menu-close").click(); >Contact</a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Header -->
+    <header id="top" class="header" style="width: 100%; background: url({{STATIC_URL}}pictures/7.pic_hd.jpg) no-repeat center center scroll; background-size: cover;">
+        <div class="text-vertical-center">
+            <h1>Access Review</h1>
+            <h3>Get review easier &amp; more efficiently </h3>
+            <br>
+            <a href="{% url 'login' %}" class="btn btn-dark btn-lg">Try it now</a>
+        </div>
+    </header>
+
+
+  <a  name="services"></a>
+    <div class="content-section-a" style="background-color: #f8f8f8;">
+        <div class="container" style="padding:30px;">
+            <div class="row">
+                <div class="col-lg-5 col-sm-6">
+                    <hr class="section-heading-spacer">
+                    <div class="clearfix"></div>
+                    <h2 class="section-heading">Order Any Food Nearby<br>Deliver Free</h2>
+                    <p class="lead">You can locate your address, and order food at any time from our provider. It will be delivered to your address. </p>
+                </div>
+                <div class="col-lg-5 col-lg-offset-2 col-sm-6">
+                    <!--img class="img-responsive" src="{{STATIC_URL}}pictures/ban_img3.jpg" alt="" style="border-radius: 220px;" -->
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container -->
+    </div>
+    <!-- /.content-section-a -->
+
+    <div class="content-section-b">
+
+        <div class="container" style="padding:30px;">
+
+            <div class="row">
+                <div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
+                    <hr class="section-heading-spacer">
+                    <div class="clearfix"></div>
+                    <h2 class="section-heading">Map Search Support<br>
+                    <p class="lead">We provide search service for you, you just need input key words such as restaurant name or menu, we can help you to pinpoint what you want! </p></h2>
+                </div>
+                <div class="col-lg-5 col-sm-pull-6  col-sm-6">
+
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container -->
+
+    </div>
+    <!-- /.content-section-b -->
+
+    <div class="content-section-a" style="background-color: #f8f8f8; padding:50px;">
+
+        <div class="container" style="padding:30px;">
+            <div class="row">
+                <div class="col-lg-5 col-sm-6">
+                    <hr class="section-heading-spacer">
+                    <div class="clearfix"></div>
+                    <h2 class="section-heading">Review Orders<br>Graph Analysis</h2>
+                    <p class="lead">User can review all the order. With the help of our graph analysis.  We using D3 to support function</p>
+                </div>
+                <div class="col-lg-5 col-lg-offset-2 col-sm-6">
+
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container -->
+
+    </div>
+    <!-- /.content-section-a -->
+  <a  name="contact" id="c"></a>
+    <div class="banner" style="background: url({{STATIC_URL}}pictures/banner-bg.jpg) no-repeat center center; padding: 100px 10px;
+    color: #f8f8f8; background-size: cover;">
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <h2>Contact Us</h2>
+                </div>
+                <div class="col-lg-6">
+                    <ul class="list-inline banner-social-buttons">
+                        <li>
+                            <a href="https://www.facebook.com/hunger.hunger.75" class="btn btn-default btn-lg"><i class="fa fa-facebook fa-fw"></i> <span class="network-name">Facebook</span></a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container -->
+
+    </div>
+    <!-- /.banner -->
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="list-inline">
+                        <li>
+                            <a href="{% url 'login' %}">Home</a>
+                        </li>
+
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li>
+                            <a href="#services">Services</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li>
+                            <a href="https://www.facebook.com/hunger.hunger.75">Contact</a>
+                        </li>
+                    </ul>
+                    <p class="copyright text-muted small">Copyright &copy; Hunger Society 2015. All Rights Reserved</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    // Closes the sidebar menu
+    $("#menu-close").click(function(e) {
+        e.preventDefault();
+        $("#sidebar-wrapper").toggleClass("active");
+    });
+
+    // Opens the sidebar menu
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#sidebar-wrapper").toggleClass("active");
+    });
+
+    // Scrolls to the selected menu item on the page
+    $(function() {
+        $('a[href*=#]:not([href=#])').click(function() {
+            if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') || location.hostname == this.hostname) {
+
+                var target = $(this.hash);
+                target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                if (target.length) {
+                    $('html,body').animate({
+                        scrollTop: target.offset().top
+                    }, 1000);
+                    return false;
+                }
+            }
+        });
+    });
+    </script>
+    <script src="{{STATIC_URL}}js/metisMenu.min.js"></script>
+    <script src="{{STATIC_URL}}js/sb-admin-2.js"></script>
+</body>
+</html>

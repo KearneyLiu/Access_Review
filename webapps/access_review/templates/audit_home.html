@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <!-- Page Content -->
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-md-3">
+                <p class="lead">App Name</p>
+                <!-- List for All apps -->
+                <div class="list-group">
+                    {% for application in applications%}
+                    <a href="{% url 'audit_permission' application.id %}" class="list-group-item">{{ application.app_name }}</a>
+
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="col-md-9">
+
+                <div class="table-responsive">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>Application</th>
+                        <th> User's First Name </th>
+                        <th> User's Last Name </th>
+
+                      <th>Reviewed By</th>
+
+                      <th> Permission </th>
+                        <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for permission in permissions%}
+                    <tr>
+                      <td>{{ permission.application }}</td>
+                      <td>{{ permission.regular_user.first_name }}</td>
+                      <td>{{ permission.regular_user.last_name }}</td>
+
+                      <td>{{ permission.reviewed_by }}</td>
+
+                      <td>
+                          {% if permission.status == permission.read %}
+                            <span class="label label-primary">{{ permission.get_status_display|capfirst }}</span>
+                        {% elif permission.status == permission.read_write %}
+                            <span class="label label-info">{{ permission.get_status_display|capfirst }}</span>
+                        {% endif %}
+                      </td>
+
+
+
+                    </tr>
+                  {% endfor %}
+
+                  </tbody>
+                </table>
+              </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+    <!-- /.container -->
+
+{% endblock %}

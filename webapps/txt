@@ -1,0 +1,21 @@
+grad <- data.frame(
+    rate= data$ALL_RATE_1112,
+    limited_english = data$LEP_COHORT_1112/data$ALL_COHORT_1112,
+    HS_grads = 1-data$Not_HS_Grad_ACS_08_12/data$Pop_25yrs_Over_ACS_08_12,
+    poverty = data$Prs_Blw_Pov_Lev_ACS_08_12/data$Pov_Univ_ACS_08_12,   
+    unemployed = data$Civ_unemp_25_44_ACS_08_12/data$Pop_25_44_ACS_08_12,   
+    nonfamily = data$NonFamily_HHD_ACS_08_12/data$Tot_Prns_in_HHD_ACS_08_12,
+    econ_disadvantage = data$ECD_COHORT_1112/data$ALL_COHORT_1112,
+    white = data$MWH_COHORT_1112/data$ALL_COHORT_1112,
+    asian = data$MAS_COHORT_1112/data$ALL_COHORT_1112,
+    black = data$MBL_COHORT_1112/data$ALL_COHORT_1112,
+    hispanic = data$MHI_COHORT_1112/data$ALL_COHORT_1112
+)
+
+
+resamps <- resamples(list(
+    ctree=ctreeFit,
+    knn=knnFit,
+    SVM=svmFit,
+    rules=rulesFit,
+    randomForest=randomForestFit))

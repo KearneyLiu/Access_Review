@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2 class="sub-header">Permission Update</h2>
+
+    <form class="form-horizontal" action="{% url 'edit_permission' permission.id %}" method="post" name="update-form" class="well form-inline" id="view_form">
+{% csrf_token %}
+          <div class="table-responsive">
+            <table class="table table-striped">
+               <thead>
+                    <tr>
+                      <th>Application</th>
+                        <th> User's First Name </th>
+                        <th> User's Last Name </th>
+
+                      <th>Reviewed By</th>
+                      <th> Permission </th>
+
+
+                    </tr>
+                  </thead>
+              <tbody>
+
+                <tr>
+                      <td>{{ permission.application }}</td>
+                      <td>{{ permission.regular_user.first_name }}</td>
+                      <td>{{ permission.regular_user.last_name }}</td>
+                      <td>{{ permission.reviewed_by }}</td>
+
+                  <td>
+                  <select name="status">
+                    {% for key, status in form.choices %}
+                        {% ifequal permission.get_status_display status %}
+                            <option value="{{ permission.status }}" selected>{{ permission.get_status_display|capfirst }}</option>
+                        {% else %}
+                            <option value="{{ key }}">{{ status|capfirst }}</option>
+                        {% endifequal %}
+                    {% endfor %}
+                  </select>
+                  </td>
+                </tr>
+
+
+              </tbody>
+            </table>
+          </div>
+    <div class="form-actions">
+    <input type="submit" class="btn btn-primary" value="Update">
+</div>
+    </form>
+            {% if form.errors %}
+                <p style="color:red">
+                    {{ form.errors }}
+                </p>
+                {% endif %}
+                {% if message %}
+                <p style="color:red">
+                    {{ message }}
+                </p>
+                {% endif %}
+    </h2>
+
+{% endblock %}
