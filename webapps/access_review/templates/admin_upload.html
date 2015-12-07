@@ -26,10 +26,27 @@
             </div>
 
             <div class="col-md-9" align="center">
-                <b>Application Name</b>
+                <b>Application Name : {{ application.app_name }}</b>
                 <p></p>
-                 <a href="{% url 'upload_file' application.id %}"><input type="text" class="btn btn-default" value="Upload Permission File"></a>
-        </div>
+                </div>
+                <form enctype="multipart/form-data" method="post" action="{% url 'upload_file' application.id %}">
+                        {% csrf_token %}
+                    <p>
+                    Upload the csv file:<br>
+                    </p>
+                    <p>
+                    <input type="file" name="file">
+                    </p>
+                    <div>
+                    <input type="submit" value="Upload">
+                    </div>
+                    </form>
+        {% if messages %}
+                <p style="color:red" align="center">
+                    {{ messages }}
+                </p >
+        {% endif %}
+
 
         </div>
 

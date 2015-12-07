@@ -527,14 +527,48 @@ def remove_auditor(request, id1, id2):
 
     return redirect(reverse('view_assignment', args=(application.id,)))
 
+
+@in_admin
 def upload(request, id):
     application = get_object_or_404(Application, id=id)
     applications = Application.objects.all()
     context = {'applications': applications,  'application':application}
     return render(request, 'admin_upload.html', context)
 
+@transaction.atomic
+@in_admin
 def upload_file(request, id):
-    return "4"
+    form = UploadFileForm(request.POST, request.FILES)
+    print form
+    success = 0
+    if form.is_valid():
+        f = request.FILES['file']
+        for line in f:
+            try:
+                s = line.split(",")
+                email = s[0]
+                name = s[1]
+                permission = s[2]
+                names = s[1].split(" ")
+                firstname = names[0]
+                lastname = names[1]
+                user,created = RegularUser.objects.get_or_create(last_name=lastname,first_name=firstname)
+                user.save()
+                app= Application.objects.get(id=id)
+                app_permission,created = App_Permission.objects.get_or_create(application=app,regular_user = user,status = permission)
+                app_permission.save()
+            except Exception as e:
+                break
+        success = 1
+
+    application = get_object_or_404(Application, id=id)
+    applications = Application.objects.all()
+    if success==0:
+        context = {'applications': applications,  'application':application,'messages':"File is not in valid format. Try again"}
+    else:
+        context = {'applications': applications,  'application':application,'messages':"Success!"}
+    return render(request, 'admin_upload.html', context)
+
 
 def report_pdf(request,id):
     application = get_object_or_404(Application, id=id)

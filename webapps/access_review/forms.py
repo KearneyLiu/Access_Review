@@ -76,3 +76,6 @@ class PermissionForm(forms.ModelForm):
         if status == None:
             raise forms.ValidationError('You should have status')
         return cleaned_data
+
+class UploadFileForm(forms.Form):
+    file = forms.FileField()
