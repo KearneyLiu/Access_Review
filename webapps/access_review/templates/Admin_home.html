@@ -1,5 +1,15 @@
 {% extends "base.html" %}
 
+{% block header %}
+    <li>
+        <a href="{% url 'admin'%}">Assignment</a>
+    </li>
+    <li>
+        <a href="{% url 'upload' 1 %}">Upload</a>
+    </li>
+
+{% endblock %}
+
 {% block content %}
     <!-- Page Content -->
     <div class="container">
@@ -10,7 +20,7 @@
                 <p class="lead">App Name</p>
                 <!-- List for All apps -->
                 <div class="list-group">
-                    {% for app in applications%}
+                    {% for app in applications %}
                     <a href="{% url 'view_assignment' app.id %}" class="list-group-item">{{ app.app_name }}</a>
 
                     {% endfor %}
@@ -22,8 +32,9 @@
                 <div class="table-responsive">
                 <table class="table table-striped">
                   <thead>
+                    <b><center>Approved Manager</center></b>
                     <tr>
-                      <th>Approved Manager</th>
+
                         <th> Manager's First Name </th>
                         <th> Manager's Last Name </th>
                         <th></th>
@@ -35,7 +46,7 @@
                       <td>{{ approved_manager.first_name }}</td>
                       <td>{{ approved_manager.last_name }}</td>
                         <td>
-                      <a href="{% url 'remove_manager' application.id approved_manager.id %}"><input type="text" class="btn btn-default" value="Remove"></a>
+                      <a href="{% url 'remove_manager' id1=application.id id2=approved_manager.id %}"><input type="text" class="btn btn-default" value="Remove"></a>
                       </td>
 
 
@@ -47,8 +58,9 @@
 
                 <table class="table table-striped">
                   <thead>
+                   <b><center>Non-Approved Manager</center></b>
                     <tr>
-                      <th>Non-Approved Manager</th>
+
                         <th> Manager's First Name </th>
                         <th> Manager's Last Name </th>
                         <th></th>
@@ -71,8 +83,8 @@
 
                 <table class="table table-striped">
                   <thead>
+                  <b><center>Approved Auditor</center></b>
                     <tr>
-                      <th>Approved Auditor</th>
                         <th> Auditor's First Name </th>
                         <th> Auditor's Last Name </th>
                         <th></th>
@@ -95,8 +107,8 @@
 
                 <table class="table table-striped">
                   <thead>
+                  <b><center>Non-Approved Auditor</center></b>
                     <tr>
-                      <th>Non-Approved Auditor</th>
                         <th> Auditor's First Name </th>
                         <th> Auditor's Last Name </th>
                         <th></th>

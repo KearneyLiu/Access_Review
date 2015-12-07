@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block header %}
+    <li>
+        <a href="{% url 'admin'%}">Assignment</a>
+    </li>
+    <li>
+        <a href="{% url 'upload' 1 %}">Upload</a>
+    </li>
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-md-3">
+                <p class="lead">App Name</p>
+                <!-- List for All apps -->
+                <div class="list-group">
+                    {% for app in applications %}
+                    <a href="{% url 'upload' app.id %}" class="list-group-item">{{ app.app_name }}</a>
+
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="col-md-9" align="center">
+                <b>Application Name</b>
+                <p></p>
+                 <a href="{% url 'upload_file' application.id %}"><input type="text" class="btn btn-default" value="Upload Permission File"></a>
+        </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}

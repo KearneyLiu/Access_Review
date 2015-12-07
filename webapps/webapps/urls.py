@@ -29,11 +29,14 @@ urlpatterns = patterns('',
     url(r'^view_permission/(?P<id>\d+)$', 'access_review.views.view_permission', name='view_permission'),
 
     url(r'^view_assignment/(?P<id>\d+)$', 'access_review.views.view_assignment', name='view_assignment'),
-    url(r'^assign_manager/(?P<id1>\d+)/(?P<id2>\d+)$', 'access_review.views.assign_manager', name='assign_assignment'),
-    url(r'^remove_manager/(?P<id1>\d+)/(?P<id2>\d+)$', 'access_review.views.remove_manager', name='remove_assignment'),
+    url(r'^assign_manager/(?P<id1>\d+)/(?P<id2>\d+)$', 'access_review.views.assign_manager', name='assign_manager'),
+    url(r'^remove_manager/(?P<id1>\d+)/(?P<id2>\d+)$', 'access_review.views.remove_manager', name='remove_manager'),
 
-    url(r'^assign_auditor/(?P<id1>\d+)/(?P<id2>\d+)$', 'access_review.views.assign_auditor', name='assign_assignment'),
-    url(r'^remove_auditor/(?P<id1>\d+)/(?P<id2>\d+)$', 'access_review.views.remove_auditor', name='remove_assignment'),
+    url(r'^assign_auditor/(?P<id1>\d+)/(?P<id2>\d+)$', 'access_review.views.assign_auditor', name='assign_auditor'),
+    url(r'^remove_auditor/(?P<id1>\d+)/(?P<id2>\d+)$', 'access_review.views.remove_auditor', name='remove_auditor'),
+
+    url(r'^upload_file/(?P<id>\d+)$', 'access_review.views.upload_file', name='upload_file'),
+    url(r'^upload/(?P<id>\d+)$', 'access_review.views.upload', name='upload'),
 
     url(r'^audit_permission/(?P<id>\d+)$', 'access_review.views.audit_permission', name='audit_permission'),
 

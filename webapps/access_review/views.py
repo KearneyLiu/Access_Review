@@ -425,7 +425,7 @@ def admin(request):
 
     admin = get_object_or_404(Admin, user = request.user)
     managers = Manager.objects.all()
-    auditos = Auditor.objects.all()
+    auditors = Auditor.objects.all()
     applications = Application.objects.all()
     application = applications[0]
     manager_relations = App_Manager_Relation.objects.filter(application=application)
@@ -434,14 +434,15 @@ def admin(request):
     approved_managers = []
     approved_auditors = []
 
-    applications = []
     for m_relation in manager_relations:
         approved_managers.append(m_relation.manager)
     for a_relation in auditor_relations:
         approved_auditors.append(a_relation.auditor)
 
-    wait_managers = Manager.objects.exclude(manager__in=approved_managers)
-    wait_auditors = Auditor.objects.exclude(auditor__in=approved_auditors)
+
+    wait_managers = [ x for x in managers if x not in approved_managers]
+    print wait_managers
+    wait_auditors = [ x for x in auditors if x not in approved_auditors]
 
     context = {'applications': applications, 'approved_managers':approved_managers, 'approved_auditors':approved_auditors,
                'wait_managers':wait_managers, 'wait_auditors':wait_auditors, 'application':application}
@@ -455,9 +456,10 @@ def view_assignment(request, id):
 
     admin = get_object_or_404(Admin, user = request.user)
     managers = Manager.objects.all()
-    auditos = Auditor.objects.all()
+    auditors = Auditor.objects.all()
 
     application = get_object_or_404(Application, id=id)
+    applications = Application.objects.all()
 
     manager_relations = App_Manager_Relation.objects.filter(application=application)
     auditor_relations = App_Auditor_Relation.objects.filter(application=application)
@@ -465,19 +467,19 @@ def view_assignment(request, id):
     approved_managers = []
     approved_auditors = []
 
-    applications = []
     for m_relation in manager_relations:
         approved_managers.append(m_relation.manager)
     for a_relation in auditor_relations:
         approved_auditors.append(a_relation.auditor)
 
-    wait_managers = Manager.objects.exclude(manager__in=approved_managers)
-    wait_auditors = Auditor.objects.exclude(auditor__in=approved_auditors)
+    wait_managers = [ x for x in managers if x not in approved_managers]
+    print wait_managers
+    wait_auditors = [ x for x in auditors if x not in approved_auditors]
 
     context = {'applications': applications, 'approved_managers':approved_managers, 'approved_auditors':approved_auditors,
                'wait_managers':wait_managers, 'wait_auditors':wait_auditors, 'application':application}
 
-    return render(request, 'view_assignment.html', context)
+    return render(request, 'admin_home.html', context)
 
 @transaction.atomic
 @in_admin
@@ -487,7 +489,7 @@ def assign_manager(request, id1, id2):
     app_manager_relation = App_Manager_Relation.objects.create(application = application, manager = manager)
     app_manager_relation.save()
 
-    return redirect(reverse('view_permission', args=(application.id)))
+    return redirect(reverse('view_assignment', args=(application.id,)))
 
 @transaction.atomic
 @in_admin
@@ -498,7 +500,7 @@ def remove_manager(request, id1, id2):
     app_manager_relation = App_Manager_Relation.objects.get(application = application, manager = manager)
     app_manager_relation.delete()
 
-    return redirect(reverse('view_permission', args=(application.id)))
+    return redirect(reverse('view_assignment', args=(application.id,)))
 
 @transaction.atomic
 @in_admin
@@ -508,7 +510,7 @@ def assign_auditor(request, id1, id2):
     app_auditor_relation = App_Auditor_Relation.objects.create(application = application, auditor = auditor)
     app_auditor_relation.save()
 
-    return redirect(reverse('view_permission', args=(application.id)))
+    return redirect(reverse('view_assignment', args=(application.id,)))
 
 @transaction.atomic
 @in_admin
@@ -518,8 +520,16 @@ def remove_auditor(request, id1, id2):
     app_auditor_relation = App_Auditor_Relation.objects.get(application = application, auditor = auditor)
     app_auditor_relation.delete()
 
-    return redirect(reverse('view_permission', args=(application.id)))
+    return redirect(reverse('view_assignment', args=(application.id,)))
 
+def upload(request, id):
+    application = get_object_or_404(Application, id=id)
+    applications = Application.objects.all()
+    context = {'applications': applications,  'application':application}
+    return render(request, 'admin_upload.html', context)
 
-@def report_pdf(request,id):
-    
+def upload_file(request, id):
+    return "4"
+
+def report_pdf(request,id):
+    return "3"
