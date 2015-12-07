@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% if messages %}
+                <p style="color:red" align="center">
+                    {{ messages }}
+                </p>
+    {% endif %}
+{% endblock %}
