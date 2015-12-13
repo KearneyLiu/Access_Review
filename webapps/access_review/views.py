@@ -553,8 +553,7 @@ def upload_file(request, id):
     if form.is_valid():
         f = request.FILES['file']
         for line in f:
-            if len(line)>0:
-                line = line[:-1]
+            line = line.strip()
             try:
                 print line
                 s = line.split(",")
@@ -569,6 +568,7 @@ def upload_file(request, id):
                 user.save()
                 app= Application.objects.get(id=id)
                 app_permission,created = App_Permission.objects.get_or_create(application=app,regular_user = user,status = permission)
+                print app_permission
                 app_permission.save()
             except Exception as e:
                 break
