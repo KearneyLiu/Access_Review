@@ -61,6 +61,5 @@ local_settings.py
 db.sqlite3
 /.idea
 /webapps/access_review/migrations
-*.pdf
 /webapps/.idea
 
